@@ -1,0 +1,31 @@
+{
+  "name": "githubApp",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "moment": "^2.22.2",
+    "native-base": "^2.8.1",
+    "nodejs-mobile-react-native": "^0.3.0",
+    "react": "16.6.0-alpha.8af6728",
+    "react-native": "0.57.3",
+    "react-native-cli": "^2.0.1",
+    "react-native-elements": "^0.19.1",
+    "react-navigation": "^2.18.1",
+    "react-native-vector-icons/Ionicons": "latest",
+    "react-native-vector-icons": "latest"
+  },
+  "devDependencies": {
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.48.1",
+    "react-test-renderer": "16.6.0-alpha.8af6728"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
