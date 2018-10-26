@@ -10,12 +10,18 @@ import axios from 'axios';
 // const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class Repositories extends Component {
+    /**
+     * constructor for repos
+     */
     constructor() {
         super();
         this.state = {
             repoList: []
         }
     }
+    /**
+     * function to fetch data from github api
+     */
     componentDidMount() {
         axios.get('https://api.github.com/users/jessiekc/repos?type=all')
             .then((response) => {
@@ -32,7 +38,7 @@ class Repositories extends Component {
                     </Body>
                 </Header>
                 <ScrollView style={{backgroundColor: '#ffffff'}}>
-                    <List containerStyle={{ borderTopWidth: 0 }}>
+                    <List>
                         <FlatList
                             data={this.state.repoList}
                             keyExtractor={item => item.url}

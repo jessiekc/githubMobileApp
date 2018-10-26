@@ -7,12 +7,18 @@ import { Header, Body, Left, Right } from 'native-base';
 import axios from 'axios';
 
 class Following extends Component {
+    /**
+     * constructor for following
+     */
     constructor() {
         super();
         this.state = {
             following: []
         }
     }
+    /**
+     * function to fetch data from github api
+     */
     componentDidMount() {
         axios.get('https://api.github.com/users/jessiekc/following')
             .then((response) => {
@@ -22,6 +28,7 @@ class Following extends Component {
     }
 
     render() {
+        const {navigate} = this.props.navigation;
         return (
             <View>
                 <Header>
@@ -30,18 +37,24 @@ class Following extends Component {
                     </Body>
                 </Header>
                 <ScrollView style={{backgroundColor: '#ffffff'}}>
-                    <List>
                         <FlatList
                             data={this.state.following}
                             keyExtractor={item => item.url}
                             renderItem={({ item }) => (
                                 <ListItem
+                                    onPress={() => {
+                                        this.props.navigation.navigate({
+                                            routeName:'Profile',
+                                            params:{'login':item.login},
+                                            key: item.login})
+                                     }}
                                     title={item.login}
                                     avatar={{uri: item.avatar_url}}
+
+
                                 />
                             )}
                         />
-                    </List>
                 </ScrollView>
             </View>
         );

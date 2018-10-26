@@ -11,6 +11,9 @@ import axios from 'axios';
 // import Follower from 'Follower';
 
 class Profile extends Component {
+    /**
+     * constructor for person profile
+     */
     constructor() {
         super();
         this.state = {
@@ -27,8 +30,18 @@ class Profile extends Component {
             createDate: ''
         }
     }
+    /**
+     * function to fetch data from github api
+     */
     componentDidMount() {
-        axios.get('https://api.github.com/users/jessiekc')
+        // console.log("here");
+        // console.log(this.props.navigation.state.params);
+        let login = 'jessiekc';
+        if(this.props.navigation.state.params){
+            login =this.props.navigation.state.params.login;
+        }
+        // console.log(login);
+        axios.get(`https://api.github.com/users/${login}`)
             .then((response) => {
                 this.setState({
                     profileImage: response.data.avatar_url,
@@ -62,9 +75,8 @@ class Profile extends Component {
                         </View>
                         <Avatar
                             xlarge
-                            source={{uri: this.state.profileImage}}
+                            source={{url: this.state.profileImage}}
                         />
-
                         <View style={{
                             flex: 1,
                             flexDirection: 'column',
@@ -74,7 +86,7 @@ class Profile extends Component {
                                 username: {this.state.username}
                             </Text>
                             <Text style={{ margin: 10 }}>
-                                email: kle11@illinois.edu
+                                email:  {this.state.email}
                             </Text>
                         </View>
                     </View>

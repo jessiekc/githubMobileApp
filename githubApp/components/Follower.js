@@ -7,12 +7,18 @@ import axios from 'axios';
 import { List, ListItem } from 'react-native-elements';
 
 class Follower extends Component {
+    /**
+     * constructor for followers
+     */
     constructor() {
         super();
         this.state = {
             followers: []
         }
     }
+    /**
+     * function to fetch data from github api
+     */
     componentDidMount() {
         axios.get('https://api.github.com/users/jessiekc/followers')
             .then((response) => {

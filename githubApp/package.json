@@ -15,7 +15,9 @@
     "react-native": "0.57.3",
     "react-native-cli": "^2.0.1",
     "react-native-elements": "^0.19.1",
-    "react-navigation": "^2.18.1"
+    "react-navigation": "^2.18.1",
+    "react-native-vector-icons/Ionicons": "latest",
+    "react-native-vector-icons": "latest"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
