@@ -13,7 +13,7 @@ class SingleRepo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            star: "ios-star"
+            star: "ios-sync"
         };
         console.log("star");
         console.log(this.props);

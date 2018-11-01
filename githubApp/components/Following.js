@@ -16,7 +16,7 @@ class SingleFollowing extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            follow: "md-heart"
+            follow: "ios-sync"
         };
         this.isfollowing(this.props.following);
         this._storeData(this.props.following.login, JSON.stringify(this.props.following));
@@ -42,13 +42,13 @@ class SingleFollowing extends Component {
             }
             else{
                 this.setState({
-                    follow: "md-heart-outline"
+                    follow: "ios-heart-dislike"
                 });
             }
         }.bind(this)).catch(function (error) {
             console.log(error);
             this.setState({
-                follow: "md-heart-outline"
+                follow: "ios-heart-dislike"
             });
         }.bind(this));
     }
@@ -59,7 +59,7 @@ class SingleFollowing extends Component {
             axios.delete(`/following/${following.login}`).then(function (response) {
                 if(response.status===204){
                     this.setState({
-                        follow: "md-heart-outline"
+                        follow: "ios-heart-dislike"
                     });
                 }
             }.bind(this))

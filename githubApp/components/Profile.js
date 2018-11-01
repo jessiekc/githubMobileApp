@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Header, Body,Button} from 'native-base';
+import { Header, Body, Button} from 'native-base';
 import axios from 'axios';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 

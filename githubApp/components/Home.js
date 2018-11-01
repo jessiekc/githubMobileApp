@@ -5,7 +5,6 @@ import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView,AsyncSto
 import { Avatar } from 'react-native-elements';
 import { Header, Body, Button} from 'native-base';
 import axios from 'axios';
-import {Scene, Router, Stack} from 'react-native-router-flux';
 import * as Animatable from 'react-native-animatable';
 import ScalingButton from '../components/ScalingButton';
 var animations = [
@@ -171,7 +170,7 @@ class Home extends Component {
                     </View>
                     <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row', backgroundColor:'#b2dbbf'}}>
                         <ScalingButton
-                            key={6}
+                            key={1}
                             onPress={()=> this.props.navigation.navigate('Repositories')}
                             noDefaultStyles={true}
                         >
@@ -185,7 +184,7 @@ class Home extends Component {
                             </Animatable.View>
                         </ScalingButton>
                         <ScalingButton
-                            key={6}
+                            key={2}
                             onPress={()=> this.props.navigation.push('Following',
                                 {'login': this.state.username}
                             )}
@@ -201,7 +200,7 @@ class Home extends Component {
                             </Animatable.View>
                         </ScalingButton>
                         <ScalingButton
-                            key={6}
+                            key={3}
                             onPress={()=> this.props.navigation.push('Follower',
                                 {'url': this.state.followers_url}
                             )}

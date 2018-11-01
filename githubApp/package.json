@@ -13,11 +13,12 @@
     "nodejs-mobile-react-native": "^0.3.0",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
+    "react-native-animatable": "^1.3.0",
     "react-native-cli": "^2.0.1",
     "react-native-elements": "^0.19.1",
-    "react-navigation": "^2.18.1",
-    "react-native-vector-icons/Ionicons": "latest",
-    "react-native-vector-icons": "latest"
+    "react-native-router-flux": "^4.0.5",
+    "react-native-vector-icons": "latest",
+    "react-navigation": "^2.18.1"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",

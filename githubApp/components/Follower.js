@@ -7,7 +7,6 @@ import { Header, Body, Left, Right, Button } from 'native-base';
 import axios from 'axios';
 import { List, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import { Actions } from 'react-native-router-flux';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 /**
@@ -17,7 +16,7 @@ class SingleFollower extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            follow: "md-heart"
+            follow: "ios-sync"
         };
         console.log("follow");
         console.log(this.props);
@@ -45,13 +44,13 @@ class SingleFollower extends Component {
             }
             else{
                 this.setState({
-                    follow: "md-heart-outline"
+                    follow: "ios-heart-dislike"
                 });
             }
         }.bind(this)).catch(function (error) {
             console.log(error);
             this.setState({
-                follow: "md-heart-outline"
+                follow: "ios-heart-dislike"
             });
         }.bind(this));
     }
@@ -62,7 +61,7 @@ class SingleFollower extends Component {
             axios.delete(`/following/${follower.login}`).then(function (response) {
                 if(response.status===204){
                     this.setState({
-                        follow: "md-heart-outline"
+                        follow: "ios-heart-dislike"
                     });
                 }
             }.bind(this))
