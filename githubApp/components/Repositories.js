@@ -6,6 +6,7 @@ import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatLis
 import { List, ListItem } from 'react-native-elements';
 import { Header, Body, Left, Right } from 'native-base';
 import axios from 'axios';
+token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 // const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -18,12 +19,14 @@ class Repositories extends Component {
         this.state = {
             repoList: []
         }
+        axios.defaults.baseURL = 'https://api.github.com/user';
+        axios.defaults.headers.common['Authorization'] = "token "+token;
     }
     /**
      * function to fetch data from github api
      */
     componentDidMount() {
-        axios.get('https://api.github.com/users/jessiekc/repos?type=all')
+        axios.get('/repos')
             .then((response) => {
                 this.setState({repoList: response.data});
                 console.log(this.state.repoList);

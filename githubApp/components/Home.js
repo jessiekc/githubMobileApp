@@ -1,19 +1,17 @@
 // {/*https://facebook.github.io/react-native/docs/touchableopacity*/}
 // https://www.youtube.com/watch?v=TnQUb-ACqWs&t=348s
-// https://www.skptricks.com/2018/10/navigating-between-screens-or-activity-in-react-navigation.html
 import React, {Component} from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { Header, Body} from 'native-base';
 import axios from 'axios';
+
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
-class Profile extends Component {
+class Home extends Component {
     /**
      * constructor for person profile
      */
-
-
     constructor() {
         super();
         this.state = {
@@ -26,23 +24,23 @@ class Profile extends Component {
             email: '',
             publicReposCount: '',
             followersCount: '',
-            followers_url: '',
             followingCount: '',
-            following_url:'',
             createDate: ''
         }
+        // axios.defaults.baseURL = 'https://api.github.com/user';
+        // axios.defaults.headers.common['Authorization'] = "token "+token;
     }
     /**
      * function to fetch data from github api
      */
     componentDidMount() {
-        let url = '';
-        if(this.props.navigation.getParam('url')){
-            url = this.props.navigation.getParam('url')
-        }
-        console.log(url);
-        console.log("43");
-        axios.get(`${url}`)
+        // let login = '';
+        // if(this.props.navigation.getParam('login')){
+        //     login ="/users/"+this.props.navigation.getParam('login')
+        // }
+        // console.log(login);
+        // console.log("43");
+        axios.get("https://api.github.com/user?access_token=f539042ef9de47ce08f1d9c8bc50673a5da980e0")
             .then((response) => {
                 this.setState({
                     profileImage: response.data.avatar_url,
@@ -66,7 +64,7 @@ class Profile extends Component {
             <View>
                 <Header>
                     <Body>
-                        <Text style={{fontWeight: "300", fontSize: 20}}> {this.state.name}</Text>
+                    <Text style={{fontWeight: "300", fontSize: 20}}> {this.state.name}</Text>
                     </Body>
                 </Header>
 
@@ -102,8 +100,9 @@ class Profile extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={{ padding: 15}}
                                           onPress={()=> this.props.navigation.push('Following',
-                                              {'login': this.state.username}
+                                             {'login': this.state.username}
                                           )}>
+                            {/*onPress={()=> this.props.navigation.navigate('Following')}>*/}
                             <Text>
                                 <Text >{this.state.followingCount} </Text>
                                 <Text> Following</Text>
@@ -112,7 +111,7 @@ class Profile extends Component {
                         <TouchableOpacity style={{ padding: 15 }}
                                           onPress={()=> this.props.navigation.push('Follower',
                                               {'url': this.state.followers_url}
-                                                    )}>
+                                          )}>
                             <Text>
                                 <Text>{this.state.followersCount}</Text>
                                 <Text> Follower</Text>
@@ -139,7 +138,7 @@ class Profile extends Component {
         );
     }
 }
-export default Profile;
+export default Home;
 
 const styles = StyleSheet.create({
 });
