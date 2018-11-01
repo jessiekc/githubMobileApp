@@ -1,11 +1,11 @@
 // {/*https://facebook.github.io/react-native/docs/touchableopacity*/}
 // https://www.youtube.com/watch?v=TnQUb-ACqWs&t=348s
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Header, Body} from 'native-base';
+import { Header, Body, Button} from 'native-base';
 import axios from 'axios';
-
+import {Scene, Router, Stack} from 'react-native-router-flux';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 class Home extends Component {
@@ -27,9 +27,20 @@ class Home extends Component {
             followingCount: '',
             createDate: ''
         }
+        this._storeData = this._storeData.bind(this)
         // axios.defaults.baseURL = 'https://api.github.com/user';
         // axios.defaults.headers.common['Authorization'] = "token "+token;
     }
+
+    //store data
+    _storeData = async (name, user) => {
+        try {
+            await AsyncStorage.setItem(name, user);
+        } catch (error) {
+            // Error saving data
+        }
+    }
+
     /**
      * function to fetch data from github api
      */
@@ -42,6 +53,7 @@ class Home extends Component {
         // console.log("43");
         axios.get("https://api.github.com/user?access_token=f539042ef9de47ce08f1d9c8bc50673a5da980e0")
             .then((response) => {
+                this._storeData('user',JSON.stringify(response.data));//store own profile
                 this.setState({
                     profileImage: response.data.avatar_url,
                     name: response.data.name,
@@ -59,6 +71,20 @@ class Home extends Component {
                 console.log(response.data);
             });
     }
+
+    _retrieveData = async () => {
+        try {
+            let value = await AsyncStorage.getItem('user');
+            let user = JSON.parse(value);
+            if (user !== null) {
+                // We have data!!
+                console.log(" We have data!!");
+                console.log(user.login);
+            }
+        } catch (error) {
+            // Error retrieving data
+        }
+    }
     render() {
         return (
             <View>
@@ -70,6 +96,7 @@ class Home extends Component {
 
                 <ScrollView>
                     <Text style={{color:'lightslategrey'}} > Created on {this.state.createdDate}</Text>
+                    {/*<Button onPress={this._retrieveData}><Text>Show Data</Text></Button>*/}
 
                     <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', backgroundColor: '#f3f3f3'}}>
                         <View>

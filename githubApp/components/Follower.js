@@ -20,14 +20,23 @@ class SingleFollower extends Component {
         console.log("follow");
         console.log(this.props);
         this.isfollowing(this.props.follower);
-        AsyncStorage.setItem(this.props.follower.login, JSON.stringify(this.props.follower));
+        this._storeData(this.props.follower.login, JSON.stringify(this.props.follower))//store follower list
+    }
+
+    //store data
+    _storeData = async (name, user) => {
+        try {
+            await AsyncStorage.setItem(name, user);
+        } catch (error) {
+            // Error saving data
+        }
     }
 
     //set icon based on if user is following user's followers
     isfollowing(follower) {
         axios.get(`/following/${follower.login}`).then(function (response) {
             if(response.status===204){
-                console.log("204");
+                console.log("isfollowing");
                 this.setState({
                     follow: "md-heart"
                 });
@@ -45,7 +54,7 @@ class SingleFollower extends Component {
         }.bind(this));
     }
 
-    //send request to d
+    //send request to follow or unfollow
     unfollow(follower) {
         if(this.state.follow=="md-heart") {
             axios.delete(`/following/${follower.login}`).then(function (response) {
@@ -77,11 +86,11 @@ class SingleFollower extends Component {
                 }}
                 title={this.props.follower.login}
                 avatar={{uri: this.props.follower.avatar_url}}
-                rightIcon={<Icon name={this.state.follow} onPress={()=>this.unfollow(this.props.follower)} size={20}/>}
+                rightIcon={<Icon name={this.state.follow} onPress={()=>this.unfollow(this.props.follower)} size={25}/>}
             >
-                {console.log("85")}
-                {console.log(this.props.navigation)}
-                {console.log("87")}
+                {/*{console.log("85")}*/}
+                {/*{console.log(this.props.navigation)}*/}
+                {/*{console.log("87")}*/}
             </ListItem>
         )
     }
@@ -110,13 +119,11 @@ class Follower extends Component {
     constructor() {
         super();
         this.state = {
-        followers: [],
-        isfollow : {}
-    }
+            followers: []
+        }
         axios.defaults.baseURL = 'https://api.github.com/user';
         axios.defaults.headers.common['Authorization'] = "token "+token;
     }
-
     /**
      * function to fetch data from github api
      */
@@ -126,17 +133,20 @@ class Follower extends Component {
         // console.log("followers")
         axios.get(`/followers`)
             .then((response) => {
-            this.setState({followers: response.data});
-            console.log(this.state.followers);
-        })
+
+                this.setState({followers: response.data});
+                console.log(this.state.followers);
+            })
     }
 
     _retrieveData = async () => {
         try {
-            const value = await AsyncStorage.getItem('TASKS');
-            if (value !== null) {
+            let value = await AsyncStorage.getItem('yren18');
+            let user = JSON.parse(value);
+            if (user !== null) {
                 // We have data!!
-                console.log(value);
+                console.log(" We have data!!");
+                console.log(user.login);
             }
         } catch (error) {
             // Error retrieving data
@@ -148,20 +158,19 @@ class Follower extends Component {
             <View>
                 <Header>
                     <Body>
-                         <Text style={{fontWeight: "300", fontSize: 20}}>Followers</Text>
+                    <Text style={{fontWeight: "300", fontSize: 20}}>Followers</Text>
+                    {/*<Button onPress={this._retrieveData}><Text>Show Data</Text></Button>*/}
                     </Body>
                 </Header>
                 <ScrollView style={{backgroundColor: '#ffffff'}}>
                     <List>
                         <FollowerList followers={this.state.followers}/>
-                        {/*<Button onPress={this._retrieveData}><Text>Show Data</Text></Button>*/}
-                     </List>
+                    </List>
                 </ScrollView>
             </View>
-    );
-}}
-    export default Follower;
+        );
+    }}
+export default Follower;
 
-    const styles = StyleSheet.create({
+const styles = StyleSheet.create({
 });
-
