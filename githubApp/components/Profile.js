@@ -1,6 +1,7 @@
 // {/*https://facebook.github.io/react-native/docs/touchableopacity*/}
 // https://www.youtube.com/watch?v=TnQUb-ACqWs&t=348s
 // https://www.skptricks.com/2018/10/navigating-between-screens-or-activity-in-react-navigation.html
+// https://facebook.github.io/react-native/docs/asyncstorage.html
 import React, {Component} from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView, AsyncStorage } from 'react-native';
 import { Avatar } from 'react-native-elements';

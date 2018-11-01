@@ -6,6 +6,19 @@ import { Avatar } from 'react-native-elements';
 import { Header, Body, Button} from 'native-base';
 import axios from 'axios';
 import {Scene, Router, Stack} from 'react-native-router-flux';
+import * as Animatable from 'react-native-animatable';
+import ScalingButton from '../components/ScalingButton';
+var animations = [
+    ['bounce', '#62B42C'],
+    ['flash', '#316BA7'],
+    ['jello', '#A0A0A0'],
+    ['pulse', '#FFC600'],
+    ['rotate', '#1A7984'],
+    ['rubberBand', '#435056'],
+    ['shake', '#FF6800'],
+    ['swing', '#B4354F'],
+    ['tada', '#333333']
+];
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 class Home extends Component {
@@ -85,6 +98,31 @@ class Home extends Component {
             // Error retrieving data
         }
     }
+    renderBoxes(start) {
+        var selected_animations = animations.slice(start, start + 3);
+        return selected_animations.map((animation, index) => {
+            return (
+
+                <ScalingButton
+                    key={index}
+                    onPress={this.stopAnimation.bind(this, animation[0])}
+                    noDefaultStyles={true}
+                >
+                    <Animatable.View
+                        ref={animation[0]}
+                        style={[styles.box, { backgroundColor: animation[1] }]}
+                        animation={animation[0]}
+                        iterationCount={"infinite"}>
+                        <Text style={styles.box_text}>{ animation[0] }</Text>
+                    </Animatable.View>
+                </ScalingButton>
+
+            );
+        });
+    }
+    stopAnimation(animation) {
+        this.refs[animation].stopAnimation();
+    }
     render() {
         return (
             <View>
@@ -97,7 +135,20 @@ class Home extends Component {
                 <ScrollView>
                     <Text style={{color:'lightslategrey'}} > Created on {this.state.createdDate}</Text>
                     {/*<Button onPress={this._retrieveData}><Text>Show Data</Text></Button>*/}
+                    <View style={styles.container}>
+                        {/*<View style={styles.row}>*/}
+                            {/*{ this.renderBoxes(0) }*/}
+                        {/*</View>*/}
 
+                        {/*<View style={styles.row}>*/}
+                            {/*{ this.renderBoxes(3) }*/}
+                        {/*</View>*/}
+
+                        {/*<View style={styles.row}>*/}
+                            {/*{ this.renderBoxes(6) }*/}
+                        {/*</View>*/}
+
+                    </View>
                     <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', backgroundColor: '#f3f3f3'}}>
                         <View>
                         </View>
@@ -119,31 +170,76 @@ class Home extends Component {
                         </View>
                     </View>
                     <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-evenly', flexDirection: 'row', backgroundColor:'#b2dbbf'}}>
-                        <TouchableOpacity style={{ padding: 15 }} onPress={()=> this.props.navigation.navigate('Repositories')}>
-                            <Text>
-                                <Text > {this.state.publicReposCount} </Text>
+                        <ScalingButton
+                            key={6}
+                            onPress={()=> this.props.navigation.navigate('Repositories')}
+                            noDefaultStyles={true}
+                        >
+                            <Animatable.View
+                                ref={animations[6][0]}
+                                style={[styles.box, { backgroundColor: animations[2][1] }]}
+                                animation={animations[6][0]}
+                                iterationCount={"infinite"}>
+                                <Text style={styles.box_text}>{this.state.publicReposCount}</Text>
                                 <Text > Repos</Text>
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{ padding: 15}}
-                                          onPress={()=> this.props.navigation.push('Following',
-                                             {'login': this.state.username}
-                                          )}>
-                            {/*onPress={()=> this.props.navigation.navigate('Following')}>*/}
-                            <Text>
-                                <Text >{this.state.followingCount} </Text>
-                                <Text> Following</Text>
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{ padding: 15 }}
-                                          onPress={()=> this.props.navigation.push('Follower',
-                                              {'url': this.state.followers_url}
-                                          )}>
-                            <Text>
-                                <Text>{this.state.followersCount}</Text>
-                                <Text> Follower</Text>
-                            </Text>
-                        </TouchableOpacity>
+                            </Animatable.View>
+                        </ScalingButton>
+                        <ScalingButton
+                            key={6}
+                            onPress={()=> this.props.navigation.push('Following',
+                                {'login': this.state.username}
+                            )}
+                            noDefaultStyles={true}
+                        >
+                            <Animatable.View
+                                ref={animations[6][0]}
+                                style={[styles.box, { backgroundColor: animations[2][1] }]}
+                                animation={animations[6][0]}
+                                iterationCount={"infinite"}>
+                                <Text style={styles.box_text}>{this.state.followingCount}</Text>
+                                <Text > Following</Text>
+                            </Animatable.View>
+                        </ScalingButton>
+                        <ScalingButton
+                            key={6}
+                            onPress={()=> this.props.navigation.push('Follower',
+                                {'url': this.state.followers_url}
+                            )}
+                            noDefaultStyles={true}
+                        >
+                            <Animatable.View
+                                ref={animations[6][0]}
+                                style={[styles.box, { backgroundColor: animations[2][1] }]}
+                                animation={animations[6][0]}
+                                iterationCount={"infinite"}>
+                                <Text style={styles.box_text}>{this.state.followersCount}</Text>
+                                <Text > Follower</Text>
+                            </Animatable.View>
+                        </ScalingButton>
+                        {/*<TouchableOpacity style={{ padding: 15 }} onPress={()=> this.props.navigation.navigate('Repositories')}>*/}
+                            {/*<Text>*/}
+                                {/*<Text > {this.state.publicReposCount} </Text>*/}
+                                {/*<Text > Repos</Text>*/}
+                            {/*</Text>*/}
+                        {/*</TouchableOpacity>*/}
+                        {/*<TouchableOpacity style={{ padding: 15}}*/}
+                                          {/*onPress={()=> this.props.navigation.push('Following',*/}
+                                             {/*{'login': this.state.username}*/}
+                                          {/*)}>*/}
+                            {/*<Text>*/}
+                                {/*<Text >{this.state.followingCount} </Text>*/}
+                                {/*<Text> Following</Text>*/}
+                            {/*</Text>*/}
+                        {/*</TouchableOpacity>*/}
+                        {/*<TouchableOpacity style={{ padding: 15 }}*/}
+                                          {/*onPress={()=> this.props.navigation.push('Follower',*/}
+                                              {/*{'url': this.state.followers_url}*/}
+                                          {/*)}>*/}
+                            {/*<Text>*/}
+                                {/*<Text>{this.state.followersCount}</Text>*/}
+                                {/*<Text> Follower</Text>*/}
+                            {/*</Text>*/}
+                        {/*</TouchableOpacity>*/}
                     </View>
                     <View style={{
                         flex: 1,
@@ -168,4 +264,24 @@ class Home extends Component {
 export default Home;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        padding: 20
+    },
+    row: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    box: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 100,
+        width: 100,
+        backgroundColor: '#ccc'
+    },
+    box_text: {
+        color: '#FFF'
+    }
 });

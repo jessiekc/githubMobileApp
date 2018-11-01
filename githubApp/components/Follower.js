@@ -10,7 +10,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 // import { Actions } from 'react-native-router-flux';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
-
+/**
+ * class for each follower user, store if he/she is followed by updating follow
+ */
 class SingleFollower extends Component {
     constructor(props) {
         super(props);
@@ -96,6 +98,13 @@ class SingleFollower extends Component {
     }
 }
 
+
+/**
+ * the list contains SingleFollower objects
+ * @param props
+ * @returns {XML} return a list view  of single follower objects
+ * @constructor
+ */
 const FollowerList = props => {
     const FollowerItems = props.followers.map(followerItem => {
         return (

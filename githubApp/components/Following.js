@@ -9,20 +9,20 @@ import Icon from 'react-native-vector-icons/Ionicons';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 
-
+/**
+ * class for each following user, store if he/she is followed by updating follow
+ */
 class SingleFollowing extends Component {
     constructor(props) {
         super(props);
         this.state = {
             follow: "md-heart"
         };
-        // console.log("follow");
-        // console.log(this.props);
         this.isfollowing(this.props.following);
         this._storeData(this.props.following.login, JSON.stringify(this.props.following));
     }
 
-    //
+    //store data
     _storeData = async (name, user) => {
         try {
             await AsyncStorage.setItem(name, user);
@@ -33,8 +33,6 @@ class SingleFollowing extends Component {
 
     //set icon based on if user is following user's following
     isfollowing(following) {
-        console.log(following.login);
-        console.log("28")
         axios.get(`/following/${following.login}`).then(function (response) {
             if(response.status===204){
                 console.log("204");
@@ -55,7 +53,7 @@ class SingleFollowing extends Component {
         }.bind(this));
     }
 
-    //send request to d
+    //send request to follow or unfollow
     unfollow(following) {
         if(this.state.follow=="md-heart") {
             axios.delete(`/following/${following.login}`).then(function (response) {
@@ -97,6 +95,7 @@ class SingleFollowing extends Component {
     }
 }
 
+//the list contains SingleFollowing objects
 const FollowingList = props => {
     const FollowingItems = props.following.map(followingItem => {
         return (
@@ -122,12 +121,6 @@ class Following extends Component {
         this.state = {
             following: []
         }
-        // this._retrieveData = this._retrieveData.bind(this);
-        // this.unfollow = this.unfollow.bind(this);
-        // axios.defaults.baseURL = 'https://api.github.com/user';
-        // axios.defaults.headers.common['Authorization'] = "token "+token;
-        // this.getFollowings();
-
     }
     /**
      * function to fetch data from github api
