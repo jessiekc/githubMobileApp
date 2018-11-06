@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import { Platform, StyleSheet, Text, View, TouchableOpacity,  FlatList, ScrollView, AsyncStorage } from 'react-native';
 import { Avatar } from 'react-native-elements';
@@ -168,5 +167,3 @@ class Following extends Component {
 }
 export default Following;
 
-const styles = StyleSheet.create({
-});

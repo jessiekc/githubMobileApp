@@ -180,5 +180,3 @@ class Follower extends Component {
     }}
 export default Follower;
 
-const styles = StyleSheet.create({
-});

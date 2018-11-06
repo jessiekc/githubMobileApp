@@ -1,12 +1,14 @@
 // {/*https://facebook.github.io/react-native/docs/touchableopacity*/}
 // https://www.youtube.com/watch?v=TnQUb-ACqWs&t=348s
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
+import { Platform, StyleSheet, View, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
 import { Avatar } from 'react-native-elements';
-import { Header, Body, Button} from 'native-base';
+import {Container, Header, Body, Left,Right, Button, Picker, Item, Input, Text } from 'native-base';
 import axios from 'axios';
 import * as Animatable from 'react-native-animatable';
 import ScalingButton from '../components/ScalingButton';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { SearchBar } from 'react-native-elements'
 var animations = [
     ['bounce', '#62B42C'],
     ['flash', '#316BA7'],
@@ -27,7 +29,8 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            isLoading: true,
+            searchContent:'',
+            searchCategory: '',
             profileImage: '',
             name: '',
             username: '',
@@ -40,11 +43,12 @@ class Home extends Component {
             createDate: ''
         }
         this._storeData = this._storeData.bind(this)
+
         // axios.defaults.baseURL = 'https://api.github.com/user';
         // axios.defaults.headers.common['Authorization'] = "token "+token;
     }
 
-    //store data
+    //store data to database
     _storeData = async (name, user) => {
         try {
             await AsyncStorage.setItem(name, user);
@@ -63,6 +67,7 @@ class Home extends Component {
         // }
         // console.log(login);
         // console.log("43");
+        //get jessiekc profile
         axios.get("https://api.github.com/user?access_token=f539042ef9de47ce08f1d9c8bc50673a5da980e0")
             .then((response) => {
                 this._storeData('user',JSON.stringify(response.data));//store own profile
@@ -84,6 +89,7 @@ class Home extends Component {
             });
     }
 
+    //get data from database
     _retrieveData = async () => {
         try {
             let value = await AsyncStorage.getItem('user');
@@ -97,11 +103,11 @@ class Home extends Component {
             // Error retrieving data
         }
     }
+    //animated button
     renderBoxes(start) {
         var selected_animations = animations.slice(start, start + 3);
         return selected_animations.map((animation, index) => {
             return (
-
                 <ScalingButton
                     key={index}
                     onPress={this.stopAnimation.bind(this, animation[0])}
@@ -122,33 +128,57 @@ class Home extends Component {
     stopAnimation(animation) {
         this.refs[animation].stopAnimation();
     }
+    searchByCategory() {
+        console.log("132");
+        if(this.state.searchCategory == "users" || this.state.searchCategory == ""){
+            this.props.navigation.push('SearchUserList', {'searchContent': this.state.searchContent});
+        }
+        else if (this.state.searchCategory == "repos"){
+            this.props.navigation.push('SearchRepoList', {'searchContent': this.state.searchContent});
+        }
+    }
     render() {
         return (
             <View>
                 <Header>
+                    <Left>
+                        <Icon name={"ios-notifications"} onPress={()=>this.props.navigation.push('Notification')} size={25}/>
+                    </Left>
                     <Body>
                     <Text style={{fontWeight: "300", fontSize: 20}}> {this.state.name}</Text>
                     </Body>
+                    <Right>
+
+                    </Right>
                 </Header>
 
                 <ScrollView>
                     <Text style={{color:'lightslategrey'}} > Created on {this.state.createdDate}</Text>
                     {/*<Button onPress={this._retrieveData}><Text>Show Data</Text></Button>*/}
-                    <View style={styles.container}>
-                        {/*<View style={styles.row}>*/}
-                            {/*{ this.renderBoxes(0) }*/}
-                        {/*</View>*/}
+                    <View >
 
-                        {/*<View style={styles.row}>*/}
-                            {/*{ this.renderBoxes(3) }*/}
-                        {/*</View>*/}
+                        <View searchBar style={{flex: 1, alignItems: 'auto', flexDirection: 'row', backgroundColor: '#f3f3f3'}}>
 
-                        {/*<View style={styles.row}>*/}
-                            {/*{ this.renderBoxes(6) }*/}
-                        {/*</View>*/}
-
+                            <Item>
+                                <Icon name="ios-search" style={{ fontSize: 25 }} />
+                                <Input placeholder="Search" onChangeText={(text) => this.setState({searchContent: text})}/>
+                                <Picker
+                                    mode={"dropdown"}
+                                    iosIcon={<Icon name="ios-arrow-down" />}
+                                    placeholder="Category"
+                                    selectedValue={this.state.searchCategory}
+                                    onValueChange={(itemValue, itemIndex) => this.setState({searchCategory: itemValue})}>
+                                    <Picker.Item label="Users" value="users" />
+                                    <Picker.Item label="Repositories" value="repos" />
+                                </Picker>
+                                <Button transparent onPress={()=>this.searchByCategory()} >
+                                    <Text>Search</Text>
+                                </Button>
+                            </Item>
+                        </View>
                     </View>
                     <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', backgroundColor: '#f3f3f3'}}>
+
                         <View>
                         </View>
                         <Avatar

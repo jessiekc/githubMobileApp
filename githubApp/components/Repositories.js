@@ -177,5 +177,3 @@ class Repositories extends Component {
 }
 export default Repositories;
 
-const styles = StyleSheet.create({
-});

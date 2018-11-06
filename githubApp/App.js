@@ -14,7 +14,10 @@ import Profile from './components/Profile';
 import Repositories from './components/Repositories';
 import Following from './components/Following';
 import Follower from './components/Follower';
-import Home from './components/Home'
+import Home from './components/Home';
+import Notification from './components/Notification';
+import SearchUserList from './components/SearchUserList';
+import SearchRepoList from './components/SearchRepoList';
 export default class App extends Component<Props> {
   render() {
     return (
@@ -25,8 +28,8 @@ export default class App extends Component<Props> {
 }
 
 // const AppTabNavigator = createBottomTabNavigator({
-//     Profile: {
-//         screen: Profile,
+//     Home: {
+//         screen: Home,
 //         navigationOptions: {
 //             tabBarLabel: 'Profile',
 //             tabBarIcon: ({ tintColor }) => (<Icon name="ios-person" size={27} color={tintColor} />)
@@ -60,8 +63,10 @@ const AppStackNavigator = createStackNavigator({
   Profile: Profile,
   Repositories: Repositories,
   Following: Following,
-  Follower: Follower
-
+  Follower: Follower,
+  Notification: Notification,
+  SearchUserList: SearchUserList,
+  SearchRepoList: SearchRepoList
 })
 
 const styles = StyleSheet.create({

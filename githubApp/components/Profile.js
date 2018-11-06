@@ -13,12 +13,9 @@ class Profile extends Component {
     /**
      * constructor for person profile
      */
-
-
     constructor() {
         super();
         this.state = {
-            isLoading: true,
             profileImage: '',
             name: '',
             username: '',
@@ -167,5 +164,3 @@ class Profile extends Component {
 }
 export default Profile;
 
-const styles = StyleSheet.create({
-});
