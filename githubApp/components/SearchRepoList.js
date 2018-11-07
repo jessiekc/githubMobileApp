@@ -7,7 +7,7 @@ import { List, ListItem } from 'react-native-elements';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 class SearchRepoList extends Component {
     /**
-     * constructor for followers
+     * constructor for SearchRepoList
      */
     constructor() {
         super();
@@ -125,6 +125,12 @@ class SearchRepoList extends Component {
                                 <ListItem
                                     title ={item.full_name}
                                     subtitle={item.description}
+                                    onPress={() => {
+                                        this.props.navigation.navigate({
+                                            routeName:'Visualization',
+                                            params:{'fullname':item.full_name},
+                                            key: item.node_id})
+                                    }}
                                 />
                             )}
                         />

@@ -18,6 +18,7 @@ import Home from './components/Home';
 import Notification from './components/Notification';
 import SearchUserList from './components/SearchUserList';
 import SearchRepoList from './components/SearchRepoList';
+import Visualization from './components/Visualization';
 export default class App extends Component<Props> {
   render() {
     return (
@@ -66,7 +67,9 @@ const AppStackNavigator = createStackNavigator({
   Follower: Follower,
   Notification: Notification,
   SearchUserList: SearchUserList,
-  SearchRepoList: SearchRepoList
+  SearchRepoList: SearchRepoList,
+  Visualization: Visualization,
+
 })
 
 const styles = StyleSheet.create({

@@ -7,7 +7,7 @@ import { List, ListItem } from 'react-native-elements';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 class SearchUserList extends Component {
     /**
-     * constructor for followers
+     * constructor for SearchUserList
      */
     constructor() {
         super();
