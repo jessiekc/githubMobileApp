@@ -2,9 +2,11 @@
 // https://www.youtube.com/watch?v=IuYo009yc8w
 // https://react-native-training.github.io/react-native-elements/docs/listitem.html
 import React, {Component} from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList, ActivityIndicator, Linking ,AsyncStorage} from 'react-native';
+import { Platform, StyleSheet, View, TouchableOpacity, ScrollView,AsyncStorage } from 'react-native';
+
 import { List, ListItem } from 'react-native-elements';
-import { Header, Body, Left, Right,Button } from 'native-base';
+import {Container, Header, Body, Left,Right, Button, Picker, Item, Input, Text } from 'native-base';
+
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
@@ -116,6 +118,8 @@ class Repositories extends Component {
     constructor() {
         super();
         this.state = {
+            searchContent:'',
+            searchCategory: '',
             repoList: []
         }
         this._storeData = this._storeData.bind(this)
@@ -156,6 +160,15 @@ class Repositories extends Component {
             // Error retrieving data
         }
     }
+    searchByCategory() {
+        console.log("132");
+        if(this.state.searchCategory == "users" || this.state.searchCategory == ""){
+            this.props.navigation.push('SearchUserList', {'searchContent': this.state.searchContent});
+        }
+        else if (this.state.searchCategory == "repos"){
+            this.props.navigation.push('SearchRepoList', {'searchContent': this.state.searchContent});
+        }
+    }
     render() {
         return (
             <View>
@@ -165,7 +178,29 @@ class Repositories extends Component {
                     <Text style={{fontWeight: "300", fontSize: 20}}> Repositories</Text>
                     </Body>
                 </Header>
+
                 <ScrollView style={{backgroundColor: '#ffffff'}}>
+                    <View >
+                        <View searchBar style={{flex: 1, alignItems: 'auto', flexDirection: 'row', backgroundColor: '#f3f3f3'}}>
+
+                            <Item>
+                                <Icon name="ios-search" style={{ fontSize: 25 }} />
+                                <Input placeholder="Search" onChangeText={(text) => this.setState({searchContent: text})}/>
+                                <Picker
+                                    mode={"dropdown"}
+                                    iosIcon={<Icon name="ios-arrow-down" />}
+                                    placeholder="Category"
+                                    selectedValue={this.state.searchCategory}
+                                    onValueChange={(itemValue, itemIndex) => this.setState({searchCategory: itemValue})}>
+                                    <Picker.Item label="Users" value="users" />
+                                    <Picker.Item label="Repositories" value="repos" />
+                                </Picker>
+                                <Button transparent onPress={()=>this.searchByCategory()} >
+                                    <Text>Search</Text>
+                                </Button>
+                            </Item>
+                        </View>
+                    </View>
                     {/*<Button onPress={this._retrieveData}><Text>Show Data</Text></Button>*/}
 
                     <RepoList repoList={this.state.repoList}/>
