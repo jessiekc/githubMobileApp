@@ -4,7 +4,6 @@ import { Avatar } from 'react-native-elements';
 import {Container, Header, Body, Left,Right, Button, Picker, Icon, Item, Input, Text } from 'native-base';
 import axios from 'axios';
 import { List, ListItem } from 'react-native-elements';
-token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 class SearchRepoList extends Component {
     /**
      * constructor for SearchRepoList
@@ -17,7 +16,7 @@ class SearchRepoList extends Component {
             order: "",
         }
         axios.defaults.baseURL = 'https://api.github.com';
-        axios.defaults.headers.common['Authorization'] = "token "+token;
+        axios.defaults.headers.common['Authorization'] = "token "+ "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
     }
     /**
      * function to fetch data from github api
@@ -93,7 +92,7 @@ class SearchRepoList extends Component {
             <View>
                 <Header>
                     <Body>
-                    <Text style={{fontWeight: "300", fontSize: 20}}>Search Result -- User</Text>
+                    <Text style={{fontWeight: "300", fontSize: 20}}>Search Result -- Repo</Text>
                     </Body>
                 </Header>
                 <ScrollView style={{backgroundColor: '#ffffff'}}>

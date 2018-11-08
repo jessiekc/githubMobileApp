@@ -20,7 +20,6 @@ var animations = [
     ['swing', '#B4354F'],
     ['tada', '#333333']
 ];
-token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 class Home extends Component {
     /**

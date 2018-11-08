@@ -9,7 +9,6 @@ import {Container, Header, Body, Left,Right, Button, Picker, Item, Input, Text }
 
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
-token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 class SingleRepo extends Component {
     constructor(props) {

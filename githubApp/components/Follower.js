@@ -8,7 +8,6 @@ import { Platform, StyleSheet, View, TouchableOpacity, ScrollView,AsyncStorage }
 import axios from 'axios';
 import { List, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
-token = "f539042ef9de47ce08f1d9c8bc50673a5da980e0";
 
 /**
  * class for each follower user, store if he/she is followed by updating follow
@@ -133,7 +132,7 @@ class Follower extends Component {
             followers: []
         }
         axios.defaults.baseURL = 'https://api.github.com/user';
-        axios.defaults.headers.common['Authorization'] = "token "+token;
+        axios.defaults.headers.common['Authorization'] = "token "+"f539042ef9de47ce08f1d9c8bc50673a5da980e0";;
     }
     /**
      * function to fetch data from github api
