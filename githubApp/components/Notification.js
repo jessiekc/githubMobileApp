@@ -82,7 +82,7 @@ class Notification extends Component {
      * function to fetch data from github api
      */
     componentDidMount() {
-        axios.get("/notifications?all=true")
+        axios.get("/notifications?all=true&since=2018-11-07T20:01:45Z")
             .then((response) => {
                 this.setState({notifications: response.data});
                 console.log(this.state.notifications);
